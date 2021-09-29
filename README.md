@@ -1,8 +1,3 @@
-### How to build a project
+### My projects of third year of Ilab
 
-```
-  $ mkdir build
-  $ cd build
-  $ cmake ..
-  $ make
-```
+
