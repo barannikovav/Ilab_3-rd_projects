@@ -126,10 +126,7 @@ namespace caches {
    					std::cerr << "Function:    " << __func__ << std::endl;
    					std::cerr << "Error text:  unknown list type" << std::endl;
    					
-   					#ifdef TEST
    					assert(false);
-   					#endif 
-
 
    					break;
    				}
@@ -189,9 +186,7 @@ namespace caches {
    					std::cerr << "Function:    " << __func__ << std::endl;
    					std::cerr << "Error text:  unknown list type" << std::endl;
    					
-   					#ifdef TEST
    					assert(false);
-   					#endif
 
    					break;
    				}
@@ -251,42 +246,6 @@ namespace caches {
 
    			{}
  
-//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-/*
-   		bool get (Data data) {
-
-   			if (Hash_Map.empty()) {
-   				List_item<Data> new_item = {data, A_IN};
-   				Insert_new_item(new_item);
-   				Is_full_check();
-
-   				
-
-   				return false;
-   			}
-
-   			auto item = Hash_Map.find(data);
-
-   			if (item == Hash_Map.end()) {
-   				
-   				List_item<Data> new_item = {data, A_IN};
-   				Insert_new_item(new_item); 
-   				Is_full_check();
-
-   				return false;
-   			} else {
-
-   				Process_existing_item(item->second);
-   				Is_full_check();
-
-   				++hit_score;
-
-   				return true;
-   			}
-
-   			return false;
-   		}
-*/
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  
 
    		template <typename F> bool get (Key key, F slow_get_page) {
