@@ -3,6 +3,9 @@
 #include <iterator>
 #include <unordered_map>
 #include <cassert>
+#include  <string>
+
+//#define TEST //uncomment to turn on test mode
 
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -38,16 +41,15 @@ template <typename Key, typename Data> struct Univ_List {
 		return (Size_list < List.size());
 	}
 
-	size_t size () {
+	size_t size () const {
 		return Size_list;
 	}
 
 };
 
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 namespace caches {
-
-
 
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -61,6 +63,8 @@ namespace caches {
 	 		size_t Cache_size;
 
 	 		int hit_score;
+
+	 		unsigned long size_division;
 
 	 		Univ_List<Key, Data> A_in;
    		Univ_List<Key, Data> A_main;
@@ -85,31 +89,55 @@ namespace caches {
    			return;
    		}
 
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
    		void Kick_last_item (List_type aim_list) {
-
-
    			
-   			if (aim_list == A_OUT) {
-   				auto outgoing = Hash_Map.find(A_out.List.back().data);
+   			switch (aim_list) 
+   			{
+
+   				case A_OUT: {
+   					auto outgoing_out = Hash_Map.find(A_out.List.back().data);
    				
-   				A_out.List.pop_back();
+   					A_out.List.pop_back();
 
-   				Hash_Map.erase(outgoing);
+   					Hash_Map.erase(outgoing_out);
 
-   			} else if (aim_list == A_MAIN) {
-   				auto outgoing = Hash_Map.find(A_main.List.back().data);
+   					break;
+   				}
+
+   				case A_MAIN: {
+   					auto outgoing_main = Hash_Map.find(A_main.List.back().data);
    			
-   				A_main.List.pop_back();
+   					A_main.List.pop_back();
 
-   				Hash_Map.erase(outgoing);
+   					Hash_Map.erase(outgoing_main);
 
-   			} else { std::cout << "Error in Kick last item: uknown list type" << std::endl; return;}
-   				
+   					break;
+   				}
+
+   				default: {
+   					std::cerr << "ERROR\n";
+
+   					#ifdef TEST
+   					std::cerr << "File:        " << __FILE__ << std::endl;
+   					std::cerr << "Line:        " << __LINE__ << std::endl;
+   					#endif
+
+   					std::cerr << "Function:    " << __func__ << std::endl;
+   					std::cerr << "Error text:  unknown list type" << std::endl;
+   					
+   					#ifdef TEST
+   					assert(false);
+   					#endif 
+
+
+   					break;
+   				}
+   			}
    				
 
    				return;
    		}
-
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
    		void Insert_new_item (const List_item<Data> &new_item) {
@@ -121,26 +149,53 @@ namespace caches {
    			return;
    		}
 
+
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
    		void Process_existing_item (List_It existing_item) {
 
-   			if (existing_item->type == A_IN) {
-   				return;
-   			}  else if (existing_item->type == A_OUT) {
+   			switch (existing_item->type) 
+   			{
+   				case A_IN: 
+   				{
+   					break;
+   				}
    				
-   				Transfer_between_lists(Hash_Map.find(existing_item->data), A_out, A_main, A_MAIN);
 
-   				return;
-   			} else if (existing_item->type == A_MAIN) {
+					case A_OUT: 
+					{
+   					
+   					Transfer_between_lists(Hash_Map.find(existing_item->data), A_out, A_main, A_MAIN);
+   					
+   					break;
+   				}
+   				case A_MAIN: 
+   				{
 
-   				existing_item->type = A_MAIN;
-   				A_main.List.splice(A_main.List.begin(), A_main.List, Hash_Map.find(existing_item->data)->second);
+   					existing_item->type = A_MAIN;
+   					A_main.List.splice(A_main.List.begin(), A_main.List, Hash_Map.find(existing_item->data)->second);
 
-   				return;
-   			} else { std::cout << "Error in process existing item: uknown list type" << std::endl; }
+   					break;
+   				}
 
+   				default: {
+   					std::cerr << "ERROR\n";
 
+   					#ifdef TEST
+   					std::cerr << "File:        " << __FILE__ << std::endl;
+   					std::cerr << "Line:        " << __LINE__ << std::endl;
+   					#endif
+
+   					std::cerr << "Function:    " << __func__ << std::endl;
+   					std::cerr << "Error text:  unknown list type" << std::endl;
+   					
+   					#ifdef TEST
+   					assert(false);
+   					#endif
+
+   					break;
+   				}
+   			}
 
    			return;
    		}
@@ -151,7 +206,6 @@ namespace caches {
 
    			if (A_in.Full()) {
    				
-
    				if (A_in.List.empty()) {
    					
    					return;
@@ -165,7 +219,6 @@ namespace caches {
    				
    				Kick_last_item(A_OUT);
    				
-
    			}
 
    			while (A_main.Full()) {
@@ -181,16 +234,25 @@ namespace caches {
    	public: 
 
    		Cache_2Q (const size_t size): 
-   			Cache_size {size}, hit_score {0},
+   			Cache_size {size}, hit_score {0}, size_division {4},
 
-   			A_in {(size_t)((size / 4) > 1 ? (size / 4) : 1) }, 
-   			A_main {(size_t)((size / 4) > 1 ? (size / 4) : 1)}, 
+   			A_in {(size_t)((size / size_division) > 1 ? (size / size_division) : 1) }, 
+   			A_main {(size_t)((size / size_division) > 1 ? (size / size_division) : 1)}, 
+   			A_out {(size_t)(size > 2 ? (Cache_size - A_in.size() - A_main.size()) : 1) }
+
+   			{}
+
+   		Cache_2Q (const size_t size, const unsigned long division): 
+   			Cache_size {size}, hit_score {0}, size_division {division},
+
+   			A_in {(size_t)((size / size_division) > 1 ? (size / size_division) : 1) }, 
+   			A_main {(size_t)((size / size_division) > 1 ? (size / size_division) : 1)}, 
    			A_out {(size_t)(size > 2 ? (Cache_size - A_in.size() - A_main.size()) : 1) }
 
    			{}
  
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
+/*
    		bool get (Data data) {
 
    			if (Hash_Map.empty()) {
@@ -205,7 +267,6 @@ namespace caches {
 
    			auto item = Hash_Map.find(data);
 
-
    			if (item == Hash_Map.end()) {
    				
    				List_item<Data> new_item = {data, A_IN};
@@ -214,12 +275,45 @@ namespace caches {
 
    				return false;
    			} else {
-   				
 
    				Process_existing_item(item->second);
    				Is_full_check();
 
+   				++hit_score;
+
+   				return true;
+   			}
+
+   			return false;
+   		}
+*/
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  
+
+   		template <typename F> bool get (Key key, F slow_get_page) {
+
+   			if (Hash_Map.empty()) {
+   				List_item<Data> new_item = {slow_get_page(key), A_IN};
+   				Insert_new_item(new_item);
+   				Is_full_check();
+
    				
+
+   				return false;
+   			}
+
+   			auto item = Hash_Map.find(key);
+
+   			if (item == Hash_Map.end()) {
+   				
+   				List_item<Data> new_item = {slow_get_page(key), A_IN};
+   				Insert_new_item(new_item); 
+   				Is_full_check();
+
+   				return false;
+   			} else {
+
+   				Process_existing_item(item->second);
+   				Is_full_check();
 
    				++hit_score;
 
@@ -229,15 +323,15 @@ namespace caches {
    			return false;
    		}
 
-//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::   		
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::		
 
-   		int Hit_Score () {
+   		int Hit_Score () const {
    			return hit_score;
    		}
 
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-   		void Print_sizes () {
+   		void Print_sizes () const {
    			
    			std::cout << "Size of A_in: " << A_in.size() << " | Size of A_out: " << A_out.size() << " | Size of A_main: " << A_main.size() << std::endl;
    			return;
@@ -245,7 +339,7 @@ namespace caches {
 
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::   		
 
-   		void cur_sizes () {
+   		void cur_sizes () const {
    			std::cout << "Elements in A_in: " << A_in.List.size() << " Elements in A_out: " << A_out.List.size() << " Elements in A_main: " << A_main.List.size() << " Elements in Hash: " << Hash_Map.size() << std::endl;
    			return;
    		}

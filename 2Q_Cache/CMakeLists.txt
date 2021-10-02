@@ -13,7 +13,7 @@ set(SOURCE_LIB ${CMAKE_SOURCE_DIR}/Headers)
 add_compile_options(
     -Werror
 
-    -ggdb
+    -O3
 
     -Wall 
     -Wextra 
@@ -22,9 +22,7 @@ add_compile_options(
     -Wconversion 
     -Wwrite-strings 
     -Wcast-qual 
-    -Wundef 
-    -Wstrict-prototypes 
-    -Wbad-function-cast  
+    -Wundef    
     -Wreturn-type
 )
 

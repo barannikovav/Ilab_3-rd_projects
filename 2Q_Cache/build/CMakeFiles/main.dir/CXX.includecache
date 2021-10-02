@@ -17,6 +17,8 @@ unordered_map
 -
 cassert
 -
+string
+-
 
 /Users/podor/Desktop/Учёба/Кодинг/Владимиров. С++/2Q_Cache/Source/2Q_Cache_source.cpp
 2Q_Cache_header.hpp
