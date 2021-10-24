@@ -1,4 +1,0 @@
-/Users/podor/Desktop/Учёба/Кодинг/Владимиров. С++/2Q_Cache/build/CMakeFiles/rebuild_cache.dir
-/Users/podor/Desktop/Учёба/Кодинг/Владимиров. С++/2Q_Cache/build/CMakeFiles/edit_cache.dir
-/Users/podor/Desktop/Учёба/Кодинг/Владимиров. С++/2Q_Cache/build/CMakeFiles/ideal.exe.dir
-/Users/podor/Desktop/Учёба/Кодинг/Владимиров. С++/2Q_Cache/build/CMakeFiles/main.exe.dir
