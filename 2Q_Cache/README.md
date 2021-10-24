@@ -6,3 +6,9 @@
   $ cmake ..
   $ make
 ```
+To specify executable file for make use make arguments:
+```
+  $ make main.exe
+  $ make ideal.exe
+```
+
