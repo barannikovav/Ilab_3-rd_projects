@@ -10,8 +10,6 @@ set(SOURCE_EXE ${CMAKE_SOURCE_DIR}/Source/2Q_Cache_source.cpp)
 
 set(SOURCE_LIB ${CMAKE_SOURCE_DIR}/Headers)
 
-set(IDEAL_EXE ${CMAKE_SOURCE_DIR}/Ideal_cache/ideal_cache.cpp)
-
 add_compile_options(
     -Werror
 
@@ -28,14 +26,11 @@ add_compile_options(
     -Wreturn-type
 )
 
-add_executable(main.exe)
-add_executable(ideal.exe)
+add_executable(main)
 
-target_sources(main.exe PRIVATE ${SOURCE_EXE})
-target_sources(ideal.exe PRIVATE ${IDEAL_EXE})
+target_sources(main PRIVATE ${SOURCE_EXE})
 
-target_include_directories(main.exe PRIVATE ${SOURCE_LIB})
-target_include_directories(ideal.exe PRIVATE ${SOURCE_LIB})
+target_include_directories(main PRIVATE ${SOURCE_LIB})
 
 
 

@@ -130,17 +130,57 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named main
+# Target rules for targets named ideal.exe
 
 # Build rule for target.
-main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
-.PHONY : main
+ideal.exe: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ideal.exe
+.PHONY : ideal.exe
 
 # fast build rule for target.
-main/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
-.PHONY : main/fast
+ideal.exe/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ideal.exe.dir/build.make CMakeFiles/ideal.exe.dir/build
+.PHONY : ideal.exe/fast
+
+#=============================================================================
+# Target rules for targets named main.exe
+
+# Build rule for target.
+main.exe: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main.exe
+.PHONY : main.exe
+
+# fast build rule for target.
+main.exe/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.exe.dir/build.make CMakeFiles/main.exe.dir/build
+.PHONY : main.exe/fast
+
+Ideal_cache/ideal_cache.o: Ideal_cache/ideal_cache.cpp.o
+
+.PHONY : Ideal_cache/ideal_cache.o
+
+# target to build an object file
+Ideal_cache/ideal_cache.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ideal.exe.dir/build.make CMakeFiles/ideal.exe.dir/Ideal_cache/ideal_cache.cpp.o
+.PHONY : Ideal_cache/ideal_cache.cpp.o
+
+Ideal_cache/ideal_cache.i: Ideal_cache/ideal_cache.cpp.i
+
+.PHONY : Ideal_cache/ideal_cache.i
+
+# target to preprocess a source file
+Ideal_cache/ideal_cache.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ideal.exe.dir/build.make CMakeFiles/ideal.exe.dir/Ideal_cache/ideal_cache.cpp.i
+.PHONY : Ideal_cache/ideal_cache.cpp.i
+
+Ideal_cache/ideal_cache.s: Ideal_cache/ideal_cache.cpp.s
+
+.PHONY : Ideal_cache/ideal_cache.s
+
+# target to generate assembly for a file
+Ideal_cache/ideal_cache.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ideal.exe.dir/build.make CMakeFiles/ideal.exe.dir/Ideal_cache/ideal_cache.cpp.s
+.PHONY : Ideal_cache/ideal_cache.cpp.s
 
 Source/2Q_Cache_source.o: Source/2Q_Cache_source.cpp.o
 
@@ -148,7 +188,7 @@ Source/2Q_Cache_source.o: Source/2Q_Cache_source.cpp.o
 
 # target to build an object file
 Source/2Q_Cache_source.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Source/2Q_Cache_source.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.exe.dir/build.make CMakeFiles/main.exe.dir/Source/2Q_Cache_source.cpp.o
 .PHONY : Source/2Q_Cache_source.cpp.o
 
 Source/2Q_Cache_source.i: Source/2Q_Cache_source.cpp.i
@@ -157,7 +197,7 @@ Source/2Q_Cache_source.i: Source/2Q_Cache_source.cpp.i
 
 # target to preprocess a source file
 Source/2Q_Cache_source.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Source/2Q_Cache_source.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.exe.dir/build.make CMakeFiles/main.exe.dir/Source/2Q_Cache_source.cpp.i
 .PHONY : Source/2Q_Cache_source.cpp.i
 
 Source/2Q_Cache_source.s: Source/2Q_Cache_source.cpp.s
@@ -166,7 +206,7 @@ Source/2Q_Cache_source.s: Source/2Q_Cache_source.cpp.s
 
 # target to generate assembly for a file
 Source/2Q_Cache_source.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Source/2Q_Cache_source.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.exe.dir/build.make CMakeFiles/main.exe.dir/Source/2Q_Cache_source.cpp.s
 .PHONY : Source/2Q_Cache_source.cpp.s
 
 # Help Target
@@ -177,7 +217,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... main"
+	@echo "... ideal.exe"
+	@echo "... main.exe"
+	@echo "... Ideal_cache/ideal_cache.o"
+	@echo "... Ideal_cache/ideal_cache.i"
+	@echo "... Ideal_cache/ideal_cache.s"
 	@echo "... Source/2Q_Cache_source.o"
 	@echo "... Source/2Q_Cache_source.i"
 	@echo "... Source/2Q_Cache_source.s"
