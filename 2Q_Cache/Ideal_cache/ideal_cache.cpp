@@ -10,7 +10,7 @@ using List_it = std::list<int>::iterator;
 
 int Ideal_Cache (size_t cache_size, unsigned int page_buf_size, std::vector <int> &input_vector) {
 	std::list <int> cache;
-	List_it found_it;
+	std::list <int>::iterator found_it;
 	int hit_score = 0;
 
 	for (unsigned int i = 0; i < page_buf_size; ++i) {
@@ -27,7 +27,7 @@ int Ideal_Cache (size_t cache_size, unsigned int page_buf_size, std::vector <int
 				
 				std::map <int, List_it> future_points_map;
 
-				for (List_it index = cache.begin(); index != cache.end(); ++index) {
+				for (List_it index = cache.begin(), index_end = cache.end(); index != index_end; ++index) {
 					unsigned int distance = page_buf_size + 1;
 					
 					for (unsigned int j = i; j < page_buf_size; ++j) {

@@ -145,19 +145,7 @@ namespace caches {
    				}
 
    				default: {
-   					/*
-   					std::cerr << "ERROR\n";
-
-   					#ifdef TEST
-   					std::cerr << "File:        " << __FILE__ << std::endl;
-   					std::cerr << "Line:        " << __LINE__ << std::endl;
-   					#endif
-
-   					std::cerr << "Function:    " << __func__ << std::endl;
-   					std::cerr << "Error text:  unknown list type" << std::endl;
    					
-   					assert(false);
-   					*/
    					ERROR_REPORT("unknown list type");
 
    					break;
@@ -208,19 +196,7 @@ namespace caches {
    				}
 
    				default: {
-   					/*
-   					std::cerr << "ERROR\n";
-
-   					#ifdef TEST
-   					std::cerr << "File:        " << __FILE__ << std::endl;
-   					std::cerr << "Line:        " << __LINE__ << std::endl;
-   					#endif
-
-   					std::cerr << "Function:    " << __func__ << std::endl;
-   					std::cerr << "Error text:  unknown list type" << std::endl;
-   					
-   					assert(false);
-						*/
+ 
 						ERROR_REPORT("unknown list type");
    					break;
    				}
@@ -263,16 +239,7 @@ namespace caches {
 
    	public: 
 
-   		Cache_2Q (const size_t size): 
-   			Cache_size {size}, hit_score {0}, size_division {4},
-
-   			A_in {(size_t)((size / size_division) > 1 ? (size / size_division) : 1) }, 
-   			A_main {(size_t)((size / size_division) > 1 ? (size / size_division) : 1)}, 
-   			A_out {(size_t)(size > 2 ? (Cache_size - A_in.size() - A_main.size()) : 1) }
-
-   			{}
-
-   		Cache_2Q (const size_t size, const unsigned long division): 
+   		Cache_2Q (const size_t size, const unsigned long division = 4): 
    			Cache_size {size}, hit_score {0}, size_division {division},
 
    			A_in {(size_t)((size / size_division) > 1 ? (size / size_division) : 1) }, 
