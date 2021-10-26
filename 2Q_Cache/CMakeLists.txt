@@ -29,13 +29,17 @@ add_compile_options(
 )
 
 add_executable(main.exe)
+add_executable(main_test.exe)
 add_executable(ideal.exe)
 
+target_compile_definitions(main_test.exe PRIVATE TEST=1)
 target_sources(main.exe PRIVATE ${SOURCE_EXE})
+target_sources(main_test.exe PRIVATE ${SOURCE_EXE})
 target_sources(ideal.exe PRIVATE ${IDEAL_EXE})
 
 target_include_directories(main.exe PRIVATE ${SOURCE_LIB})
-target_include_directories(ideal.exe PRIVATE ${SOURCE_LIB})
+target_include_directories(main_test.exe PRIVATE ${SOURCE_LIB})
+
 
 
 
